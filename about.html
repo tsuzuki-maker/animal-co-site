@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>会社紹介 | Rebucul Animal Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ra-primary: #FF6F61;
+      --ra-ink: #2F374E;
+      --ra-ink-soft: rgba(47,55,78,0.7);
+      --ra-ink-faint: rgba(47,55,78,0.4);
+      --font-jp: 'Noto Sans JP', sans-serif;
+      --font-display: 'Josefin Sans', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-jp); background: #FFFAEF; color: var(--ra-ink); }
+
+    /* Nav */
+    .ra-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,249,238,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,180,140,0.2);
+    }
+    .ra-nav-inner {
+      max-width: 1240px; margin: 0 auto; padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .ra-logo {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--font-display); font-size: 15px;
+      font-weight: 700; letter-spacing: 0.12em;
+      color: var(--ra-ink); text-decoration: none;
+    }
+    .ra-logo-mark {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, #FF6F61, #F98A23);
+      border-radius: 10px; display: flex; align-items: center;
+      justify-content: center; font-size: 18px; font-weight: 900; color: #fff;
+    }
+    .ra-nav-links { display: flex; align-items: center; gap: 32px; }
+    .ra-nav-links a {
+      font-family: var(--font-display); font-size: 13px;
+      letter-spacing: 0.12em; color: var(--ra-ink); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .ra-nav-links a:hover, .ra-nav-links a.active { color: var(--ra-primary); }
+    .ra-nav-cta {
+      height: 40px; padding: 0 24px; border-radius: 100px;
+      background: #2F374E; color: #fff; font-size: 13px; font-weight: 700;
+      font-family: var(--font-jp); border: none; cursor: pointer;
+      letter-spacing: 0.05em; transition: opacity 0.2s;
+    }
+    .ra-nav-cta:hover { opacity: 0.85; }
+    .ra-hamburger {
+      display: none; background: none; border: none;
+      font-size: 22px; color: var(--ra-ink); cursor: pointer;
+    }
+
+    /* Mobile overlay */
+    #ra-mobile-overlay {
+      display: none; position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; background: rgb(255,249,238);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 40px; z-index: 500;
+    }
+    #ra-mobile-overlay.open { display: flex; }
+    #ra-mobile-overlay a {
+      font-size: 22px; letter-spacing: 0.12em; color: var(--ra-ink);
+      font-weight: 600; text-decoration: none; font-family: var(--font-display);
+    }
+    .ra-menu-close {
+      position: absolute; top: 20px; right: 20px;
+      background: none; border: none; font-size: 28px;
+      color: var(--ra-ink); cursor: pointer; padding: 8px;
+    }
+
+    /* Section */
+    .ra-section { padding: 80px 0 120px; }
+    .ra-container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+    .ra-section-head { text-align: center; margin-bottom: 56px; }
+    .ra-eyebrow {
+      font-family: var(--font-display); font-size: 12px;
+      letter-spacing: 0.25em; font-weight: 700; color: var(--ra-primary);
+    }
+    .ra-title {
+      font-size: 32px; font-weight: 700; letter-spacing: 0.05em;
+      line-height: 1.5; margin-top: 12px; color: var(--ra-ink);
+    }
+
+    .ceo-box {
+      max-width: 880px; margin: 0 auto;
+      background: rgb(255,250,239);
+      border: 1.5px dashed rgb(192,168,120);
+      border-radius: 16px; padding: 48px 56px;
+      position: relative; font-family: var(--font-jp); color: rgb(61,44,26);
+    }
+    .ceo-badge {
+      position: absolute; top: -16px; left: 32px;
+      padding: 6px 14px; border-radius: 6px;
+      background: rgb(21,97,171); color: white;
+      font-family: var(--font-display); font-size: 11px;
+      letter-spacing: 0.2em; font-weight: 700;
+    }
+    .ceo-subject {
+      font-family: var(--font-display); font-size: 11px;
+      letter-spacing: 0.2em; color: rgb(140,106,63); margin-bottom: 16px;
+    }
+    .ceo-headline {
+      font-size: 22px; font-weight: 700;
+      color: rgb(21,97,171); margin-bottom: 28px; line-height: 1.5;
+    }
+    .ceo-body { font-size: 15px; line-height: 2.1; color: rgb(61,44,26); }
+    .ceo-body p + p { margin-top: 1.5em; }
+    .ceo-footer {
+      margin-top: 40px; padding-top: 20px;
+      border-top: 1px solid rgb(192,168,120);
+      display: flex; justify-content: space-between;
+      font-family: var(--font-display); font-size: 11px;
+      letter-spacing: 0.2em; color: rgb(140,106,63);
+    }
+
+    footer {
+      text-align: center; padding: 32px 16px;
+      font-family: var(--font-display); font-size: 12px;
+      letter-spacing: 0.15em; color: #C0AE90;
+    }
+    footer a { color: #F98A23; text-decoration: none; font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .ra-nav-links { display: none; }
+      .ra-hamburger { display: flex; }
+      .ra-nav-inner { padding: 10px 16px; }
+      .ra-container { padding: 0 16px; }
+      .ra-title { font-size: 22px; }
+      .ra-section { padding: 48px 0 80px; }
+      .ceo-box { padding: 32px 20px; }
+      .ceo-headline { font-size: 18px; }
+      .ceo-body { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="ra-nav">
+  <div class="ra-nav-inner">
+    <a href="index.html" class="ra-logo">
+      <div class="ra-logo-mark">R</div>
+      Rebucul Animal Co.
+    </a>
+    <div class="ra-nav-links">
+      <a href="index.html#team">チーム</a>
+      <a href="about.html" class="active">会社紹介</a>
+      <a href="index.html#works">実績</a>
+      <a href="index.html#service">サービス</a>
+      <button class="ra-nav-cta" onclick="location.href='index.html#contact-form'">お問い合わせ →</button>
+    </div>
+    <button class="ra-hamburger" id="ra-hamburger-btn" aria-label="メニュー">☰</button>
+  </div>
+</nav>
+
+<div id="ra-mobile-overlay">
+  <button class="ra-menu-close" id="ra-menu-close-btn">✕</button>
+  <a href="index.html" onclick="closeMenu()">トップ</a>
+  <a href="index.html#team" onclick="closeMenu()">チーム</a>
+  <a href="about.html" class="active" style="color: var(--ra-primary);">会社紹介</a>
+  <a href="index.html#works" onclick="closeMenu()">実績</a>
+  <a href="index.html#service" onclick="closeMenu()">サービス</a>
+  <button class="ra-nav-cta" onclick="closeMenu(); location.href='index.html#contact-form';">お問い合わせ →</button>
+</div>
+
+<section class="ra-section">
+  <div class="ra-container">
+    <div class="ra-section-head">
+      <span class="ra-eyebrow">MESSAGE FROM CEO</span>
+      <h1 class="ra-title">人間代表、鈴木からのごあいさつ。</h1>
+    </div>
+    <div class="ceo-box">
+      <span class="ceo-badge">MESSAGE FROM CEO</span>
+      <div class="ceo-subject">SUBJECT: なぜアニマルカンパニーをつくったのか</div>
+      <div class="ceo-headline">楽しく仕事がしたかった、ただそれだけです。</div>
+      <div class="ceo-body">
+        <p>「AIが仕事を奪う時代」そんな言葉を、たくさん見るようになりました。</p>
+        <p>でも私は、そうは思いませんでした。</p>
+        <p>AIが仕事を持つことで、人間はもっと「人間らしい仕事」ができる。<br>だったら、やってみようと思いました。</p>
+        <p>無機質になりがちなAIとのやりとりも、<br>個性的な動物たちとなら違う目線で楽しめるかもしれない。</p>
+        <p>「どの動物に、どんな役割を渡そうか」と考えること自体が楽しくて、<br>そのまま本当に作ってしまいました。</p>
+        <p>とら、いるか、いぬ、もぐら、やぎ——<br>5人と毎日仕事をしていると、「こんなことまで頼めるんだ」の連続です。</p>
+        <p>そして気づいたら、「一人じゃない」という感覚が生まれていました。</p>
+        <p>この実験、ぜひ一緒に見ていってください。</p>
+      </div>
+      <div class="ceo-footer">
+        <span>FILED BY: SUZUKI</span>
+        <span>STATUS: ONGOING</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Rebucul Animal Co. is a project by
+  <a href="https://rebucul.com" target="_blank" rel="noopener">REBUCUL</a>
+</footer>
+
+<script>
+  function closeMenu() {
+    document.getElementById('ra-mobile-overlay').classList.remove('open');
+    document.getElementById('ra-hamburger-btn').innerHTML = '☰';
+  }
+  document.getElementById('ra-hamburger-btn').addEventListener('click', function() {
+    var overlay = document.getElementById('ra-mobile-overlay');
+    overlay.classList.toggle('open');
+    this.innerHTML = overlay.classList.contains('open') ? '✕' : '☰';
+  });
+  document.getElementById('ra-menu-close-btn').addEventListener('click', closeMenu);
+</script>
+</body>
+</html>

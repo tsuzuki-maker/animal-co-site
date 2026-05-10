@@ -130,6 +130,136 @@
     }
     footer a { color: #F98A23; text-decoration: none; font-weight: 700; }
 
+    /* Overview Table */
+    .overview-table {
+      max-width: 720px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .overview-table tr {
+      border-bottom: 1px solid rgba(192,168,120,0.3);
+    }
+    .overview-table tr:first-child {
+      border-top: 1px solid rgba(192,168,120,0.3);
+    }
+    .overview-table th {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--ra-ink-soft);
+      font-weight: 700;
+      text-align: left;
+      padding: 20px 24px 20px 0;
+      width: 180px;
+      vertical-align: top;
+    }
+    .overview-table td {
+      font-size: 15px;
+      color: var(--ra-ink);
+      padding: 20px 0;
+      line-height: 1.7;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 32px 16px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid rgba(192,168,120,0.3);
+    }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--ra-primary);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .stat-label {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--ra-ink-soft);
+      font-family: var(--font-display);
+    }
+
+    /* Team photo */
+    .team-photo-label {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      font-weight: 700;
+      color: var(--ra-ink-faint);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .team-photo-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* CTA */
+    .cta-section { background: #FFFAEF; }
+    .cta-box {
+      text-align: center;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 64px 56px;
+      background: linear-gradient(135deg, #FF4E50 0%, #F98A23 50%, #F9D423 100%);
+      border-radius: 32px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box .ra-eyebrow {
+      color: #fff;
+      opacity: 0.95;
+    }
+    .cta-title {
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1.5;
+      letter-spacing: 0.05em;
+      color: #fff;
+      margin: 12px 0 16px;
+    }
+    .cta-body {
+      font-size: 15px;
+      color: #fff;
+      opacity: 0.95;
+      margin: 0 auto 32px;
+      max-width: 640px;
+      line-height: 2;
+    }
+    .cta-btn {
+      height: 60px;
+      padding: 0 40px;
+      border-radius: 100px;
+      background: #fff;
+      color: #E0701F;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: var(--font-jp);
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      transition: opacity 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.85; }
+
     @media (max-width: 768px) {
       .ra-nav-links { display: none; }
       .ra-hamburger { display: flex; }
@@ -140,6 +270,10 @@
       .ceo-box { padding: 32px 20px; }
       .ceo-headline { font-size: 18px; }
       .ceo-body { font-size: 14px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-number { font-size: 36px; }
+      .cta-title { font-size: 20px; }
+      .cta-box { padding: 40px 20px; }
     }
   </style>
 </head>
@@ -172,7 +306,40 @@
   <button class="ra-nav-cta" onclick="closeMenu(); location.href='index.html#contact-form';">お問い合わせ →</button>
 </div>
 
+<!-- 会社概要 -->
 <section class="ra-section">
+  <div class="ra-container">
+    <div class="ra-section-head">
+      <span class="ra-eyebrow">COMPANY OVERVIEW</span>
+      <h2 class="ra-title">会社概要</h2>
+    </div>
+    <table class="overview-table">
+      <tr>
+        <th>設立</th>
+        <td>2026年</td>
+      </tr>
+      <tr>
+        <th>代表</th>
+        <td>鈴木（HUMAN）</td>
+      </tr>
+      <tr>
+        <th>スタッフ</th>
+        <td>AI社員 5名 ＋ 人間 1名</td>
+      </tr>
+      <tr>
+        <th>本拠地</th>
+        <td>日本</td>
+      </tr>
+      <tr>
+        <th>コンセプト</th>
+        <td>AIが仕事を持つことで、人間はもっと人間らしい仕事ができる。</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- CEOメッセージ -->
+<section class="ra-section" style="padding-top: 0;">
   <div class="ra-container">
     <div class="ra-section-head">
       <span class="ra-eyebrow">MESSAGE FROM CEO</span>
@@ -196,6 +363,54 @@
         <span>FILED BY: SUZUKI</span>
         <span>STATUS: ONGOING</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- A: 数字で見るアニマルカンパニー -->
+<section class="ra-section" style="padding-top: 0;">
+  <div class="ra-container">
+    <div class="ra-section-head">
+      <span class="ra-eyebrow">BY THE NUMBERS</span>
+      <h2 class="ra-title">数字で見るアニマルカンパニー。</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">5</div>
+        <div class="stat-label">AI社員</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">1</div>
+        <div class="stat-label">人間（代表）</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">対応業務の種類</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">実験中の取り組み</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- D: チーム写真 -->
+<section class="ra-section" style="padding-top: 0;">
+  <div class="ra-container">
+    <div class="team-photo-label">ALL HANDS MEETING</div>
+    <img src="photos/team-meeting.png" alt="Rebucul Animal Co. チーム" class="team-photo-img">
+  </div>
+</section>
+
+<!-- E: CTA -->
+<section class="ra-section cta-section">
+  <div class="ra-container">
+    <div class="cta-box">
+      <span class="ra-eyebrow">HIRE AN AI TEAM MEMBER</span>
+      <h2 class="cta-title">あなたの会社にも、AI社員を。</h2>
+      <p class="cta-body">リビカルアニマルcompanyで働いているAI社員たちは、他の会社でも働くことができます。<br>あなたの会社に合ったAIチームづくりを、リビカルがご一緒します。</p>
+      <button class="cta-btn" onclick="location.href='index.html#contact-form'">AI社員を迎えてみる →</button>
     </div>
   </div>
 </section>

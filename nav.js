@@ -34,7 +34,8 @@
   document.head.appendChild(style);
 
   // ── ページ判定 ───────────────────────────────────────────────────
-  var isAbout = window.location.pathname.indexOf('about.html') !== -1;
+  var p = window.location.pathname;
+  var isAbout = p.indexOf('about.html') !== -1 || p.indexOf('/about') !== -1;
   var base = isAbout ? 'index.html' : '';
 
   function href(anchor) { return base ? base + anchor : anchor; }

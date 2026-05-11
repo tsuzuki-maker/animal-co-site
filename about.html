@@ -18,66 +18,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font-jp); background: #FFFAEF; color: var(--ra-ink); }
 
-    /* Nav */
-    .ra-nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,249,238,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(200,180,140,0.2);
-    }
-    .ra-nav-inner {
-      max-width: 1240px; margin: 0 auto; padding: 16px 32px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .ra-logo {
-      display: flex; align-items: center; gap: 12px;
-      font-family: var(--font-display); font-size: 15px;
-      font-weight: 700; letter-spacing: 0.12em;
-      color: var(--ra-ink); text-decoration: none;
-    }
-    .ra-logo-mark {
-      width: 36px; height: 36px;
-      background: linear-gradient(135deg, #FF6F61, #F98A23);
-      border-radius: 10px; display: flex; align-items: center;
-      justify-content: center; font-size: 18px; font-weight: 900; color: #fff;
-    }
-    .ra-nav-links { display: flex; align-items: center; gap: 32px; }
-    .ra-nav-links a {
-      font-family: var(--font-display); font-size: 13px;
-      letter-spacing: 0.12em; color: var(--ra-ink); text-decoration: none;
-      transition: color 0.2s;
-    }
-    .ra-nav-links a:hover, .ra-nav-links a.active { color: var(--ra-primary); }
-    .ra-nav-cta {
-      height: 40px; padding: 0 24px; border-radius: 100px;
-      background: #2F374E; color: #fff; font-size: 13px; font-weight: 700;
-      font-family: var(--font-jp); border: none; cursor: pointer;
-      letter-spacing: 0.05em; transition: opacity 0.2s;
-    }
-    .ra-nav-cta:hover { opacity: 0.85; }
-    .ra-hamburger {
-      display: none; background: none; border: none;
-      font-size: 22px; color: var(--ra-ink); cursor: pointer;
-    }
-
-    /* Mobile overlay */
-    #ra-mobile-overlay {
-      display: none; position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%; background: rgb(255,249,238);
-      flex-direction: column; align-items: center; justify-content: center;
-      gap: 40px; z-index: 500;
-    }
-    #ra-mobile-overlay.open { display: flex; }
-    #ra-mobile-overlay a {
-      font-size: 22px; letter-spacing: 0.12em; color: var(--ra-ink);
-      font-weight: 600; text-decoration: none; font-family: var(--font-display);
-    }
-    .ra-menu-close {
-      position: absolute; top: 20px; right: 20px;
-      background: none; border: none; font-size: 28px;
-      color: var(--ra-ink); cursor: pointer; padding: 8px;
-    }
-
     /* Section */
     .ra-section { padding: 80px 0 120px; }
     .ra-container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
@@ -294,32 +234,7 @@
 </head>
 <body>
 
-<nav class="ra-nav">
-  <div class="ra-nav-inner">
-    <a href="index.html" class="ra-logo">
-      <div class="ra-logo-mark">R</div>
-      Rebucul Animal Co.
-    </a>
-    <div class="ra-nav-links">
-      <a href="index.html#team">チーム</a>
-      <a href="about.html" class="active">会社紹介</a>
-      <a href="index.html#works">実績</a>
-      <a href="index.html#service">サービス</a>
-      <button class="ra-nav-cta" onclick="location.href='index.html#contact-form'">お問い合わせ →</button>
-    </div>
-    <button class="ra-hamburger" id="ra-hamburger-btn" aria-label="メニュー">☰</button>
-  </div>
-</nav>
-
-<div id="ra-mobile-overlay">
-  <button class="ra-menu-close" id="ra-menu-close-btn">✕</button>
-  <a href="index.html" onclick="closeMenu()">トップ</a>
-  <a href="index.html#team" onclick="closeMenu()">チーム</a>
-  <a href="about.html" class="active" style="color: var(--ra-primary);">会社紹介</a>
-  <a href="index.html#works" onclick="closeMenu()">実績</a>
-  <a href="index.html#service" onclick="closeMenu()">サービス</a>
-  <button class="ra-nav-cta" onclick="closeMenu(); location.href='index.html#contact-form';">お問い合わせ →</button>
-</div>
+<script src="nav.js"></script>
 
 <!-- CEOメッセージ -->
 <section class="ra-section">
@@ -424,17 +339,5 @@
   <a href="https://rebucul.com" target="_blank" rel="noopener">REBUCUL</a>
 </footer>
 
-<script>
-  function closeMenu() {
-    document.getElementById('ra-mobile-overlay').classList.remove('open');
-    document.getElementById('ra-hamburger-btn').innerHTML = '☰';
-  }
-  document.getElementById('ra-hamburger-btn').addEventListener('click', function() {
-    var overlay = document.getElementById('ra-mobile-overlay');
-    overlay.classList.toggle('open');
-    this.innerHTML = overlay.classList.contains('open') ? '✕' : '☰';
-  });
-  document.getElementById('ra-menu-close-btn').addEventListener('click', closeMenu);
-</script>
 </body>
 </html>

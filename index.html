@@ -39438,55 +39438,66 @@ window.TEAM = TEAM;
 
 </script>
   <script type="text/babel">
-// Hero — first view. Headline + group-portrait illustration of the whole team.
+// Hero — full-bleed team-meeting photo with overlay headline + CTAs.
 
 const Hero = () => {
-  // Layout: title left + group portrait right.
-  // Group portrait: rebucul stage with the 6 characters arranged in a friendly cluster.
-  // Pseudo "office" backdrop: blue-to-cream sky.
-
   const heroStyles = {
     section: {
       position: 'relative',
-      minHeight: 760,
-      padding: '96px 0 80px',
-      background: 'linear-gradient(180deg, #FFF1D6 0%, #FFFAEF 60%, #FFF9EE 100%)',
+      width: '100%',
+      aspectRatio: '16 / 8.2',
+      minHeight: 560,
+      maxHeight: '92vh',
       overflow: 'hidden',
+      background: '#FFF1D6',
+      isolation: 'isolate',
+    },
+    bg: {
+      position: 'absolute', inset: 0,
+      width: '100%', height: '100%',
+      objectFit: 'cover',
+      objectPosition: 'center right',
+      zIndex: 0,
+    },
+    overlay: {
+      position: 'absolute', inset: 0,
+      background: 'linear-gradient(90deg, rgba(255,249,238,0.95) 0%, rgba(255,249,238,0.85) 28%, rgba(255,249,238,0.45) 46%, rgba(255,249,238,0) 62%)',
+      zIndex: 1,
     },
     container: {
       position: 'relative',
+      zIndex: 2,
       maxWidth: 1240,
+      height: '100%',
       margin: '0 auto',
-      padding: '0 32px',
-      display: 'grid',
-      gridTemplateColumns: '1fr 1.05fr',
-      gap: 48,
-      alignItems: 'center',
+      padding: '64px 32px',
+      display: 'flex', flexDirection: 'column', justifyContent: 'center',
     },
     eyebrow: {
       display: 'inline-flex', alignItems: 'center', gap: 12,
-      padding: '8px 16px',
-      background: 'rgba(255,255,255,0.8)',
+      padding: '8px 18px',
+      background: 'rgba(255,255,255,0.85)',
       border: '1.5px solid var(--ra-primary)',
       borderRadius: 100,
       fontSize: 12, fontWeight: 700, letterSpacing: '0.18em',
       color: 'var(--ra-primary)',
-      marginBottom: 24,
+      marginBottom: 28,
       fontFamily: 'var(--font-display)',
+      alignSelf: 'flex-start',
     },
-    eyebrowDot: {
-      width: 8, height: 8, borderRadius: '50%',
-      background: 'var(--ra-primary)',
-      animation: 'ra-pulse 1.6s ease-in-out infinite',
+    eyebrowStar: {
+      width: 14, height: 14,
+      color: 'var(--ra-primary)',
     },
     h1: {
       fontFamily: 'var(--font-jp)',
-      fontSize: 56,
+      fontSize: 'clamp(40px, 5.2vw, 68px)',
       fontWeight: 700,
-      lineHeight: 1.4,
+      lineHeight: 1.35,
       letterSpacing: '0.01em',
-      margin: '0 0 32px',
+      margin: '0 0 28px',
       color: 'var(--ra-ink)',
+      maxWidth: 680,
     },
     h1Em: {
       background: 'var(--ra-grad-warm)',
@@ -39494,134 +39505,131 @@ const Hero = () => {
       backgroundClip: 'text',
     },
     sub: {
-      fontSize: 17, lineHeight: 2,
+      fontSize: 16, lineHeight: 2,
       color: 'var(--ra-ink-soft)',
       maxWidth: 460,
-      margin: '0 0 40px',
+      margin: '0 0 36px',
+      fontWeight: 500,
     },
-    ctaRow: { display: 'flex', gap: 16, flexWrap: 'wrap' },
-    /* group portrait */
-    portrait: {
-      position: 'relative',
-      width: '100%',
-      aspectRatio: '1.05 / 1',
-      maxWidth: 620,
-      justifySelf: 'end',
-    },
-    stage: {
-      position: 'absolute', inset: 0,
-      borderRadius: 32,
-      background: 'linear-gradient(180deg, #E6F0F7 0%, #FFFAEF 100%)',
-      boxShadow: 'inset 0 0 0 1.5px #FFFFFFE6, var(--ra-sh-card)',
-      overflow: 'hidden',
-    },
-    sun: {
-      position: 'absolute', top: '12%', right: '14%',
-      width: 90, height: 90,
-      borderRadius: '50%',
-      background: 'radial-gradient(circle, #FDDE5C 0%, rgba(253,222,92,0.4) 60%, transparent 80%)',
-    },
-    cloud: {
-      position: 'absolute', borderRadius: 100,
-      background: 'rgba(255,255,255,0.85)',
-    },
-    floor: {
-      position: 'absolute', bottom: 0, left: 0, right: 0, height: '32%',
-      background: 'linear-gradient(180deg, rgba(255,241,214,0.4) 0%, #FFE9C2 100%)',
-    },
-    avatar: {
+    ctaRow: { display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'flex-start' },
+    liveCard: {
       position: 'absolute',
-      filter: 'drop-shadow(0 6px 12px rgba(74, 51, 17, 0.15))',
-      transition: 'transform .35s ease',
-      transform: 'translateX(-50%)',
+      right: 32, bottom: 32,
+      zIndex: 2,
+      padding: '14px 20px',
+      background: 'rgba(255,255,255,0.96)',
+      borderRadius: 14,
+      boxShadow: '0 12px 32px rgba(74,51,17,0.18)',
+      display: 'flex', flexDirection: 'column', gap: 6,
+      maxWidth: 340,
     },
-    nametag: {
-      position: 'absolute',
-      padding: '4px 10px',
+    liveTopRow: {
+      display: 'flex', alignItems: 'center', gap: 10,
+      fontSize: 13, fontWeight: 700, color: 'var(--ra-ink)',
+    },
+    liveBadge: {
+      marginLeft: 'auto',
+      display: 'inline-flex', alignItems: 'center', gap: 6,
+      padding: '3px 10px',
       borderRadius: 100,
-      background: '#fff',
-      border: '1.5px solid currentColor',
-      fontSize: 11, fontWeight: 700, letterSpacing: '0.1em',
-      whiteSpace: 'nowrap',
-      boxShadow: 'var(--ra-sh-soft)',
-      transform: 'translateX(-50%)',
+      background: '#1F8A5B',
+      color: '#fff',
+      fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 10, letterSpacing: '0.18em',
     },
-    /* Decoration squares */
-    deco: {
-      position: 'absolute', pointerEvents: 'none',
+    liveDot: {
+      width: 6, height: 6, borderRadius: '50%',
+      background: '#fff',
+      animation: 'ra-blink 1.4s ease-in-out infinite',
+    },
+    liveSub: {
+      fontSize: 13, color: 'var(--ra-ink-soft)', fontWeight: 500,
+    },
+    scrollCue: {
+      position: 'absolute',
+      left: 32, bottom: 32,
+      zIndex: 2,
+      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
+      fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 11, letterSpacing: '0.25em',
+      color: 'var(--ra-ink-soft)',
+    },
+    scrollDown: {
+      width: 32, height: 32, borderRadius: '50%',
+      border: '1.5px solid var(--ra-ink-soft)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      animation: 'ra-bounce 1.8s ease-in-out infinite',
     },
   };
 
-  // Avatar arrangement (% of stage)
-  // 3 across the top row, 3 across the bottom. left/top are the CENTER of each avatar.
-  const avatars = [
-    { id: 'tora',    cmp: window.TigerSVG,   size: 120, left: '20%', top: '32%', label: 'とらさん', labelLeft: '20%', labelTop: '54%', color: '#F98A23', dir:   3 },
-    { id: 'suzuki',  cmp: window.SuzukiSVG,  size: 140, left: '50%', top: '30%', label: '鈴木',    labelLeft: '50%', labelTop: '54%', color: '#1561AB', dir:  -2 },
-    { id: 'iruka',   cmp: window.DolphinSVG, size: 120, left: '80%', top: '32%', label: 'いるかさん', labelLeft: '80%', labelTop: '54%', color: '#0990D4', dir:  -3 },
-    { id: 'inu',     cmp: window.DogSVG,     size: 110, left: '20%', top: '70%', label: 'いぬさん', labelLeft: '20%', labelTop: '92%', color: '#FF6F61', dir:   2 },
-    { id: 'mogura',  cmp: window.MoleSVG,    size: 110, left: '50%', top: '72%', label: 'もぐらさん', labelLeft: '50%', labelTop: '92%', color: '#7B5DA8', dir:  -2 },
-    { id: 'yagi',    cmp: window.GoatSVG,    size: 110, left: '80%', top: '70%', label: 'やぎさん', labelLeft: '80%', labelTop: '92%', color: '#C59B32', dir:   2 },
-  ];
-
   return (
     <section style={heroStyles.section}>
-      {/* scattered decoration */}
-      <div className="ra-deco ra-deco--sq" style={{ ...heroStyles.deco, left: '6%',  top: '14%', width: 14, height: 14, background: '#F98A23', transform: 'rotate(28deg)', opacity: 0.7 }} />
-      <div className="ra-deco ra-deco--sq" style={{ ...heroStyles.deco, left: '4%',  top: '54%', width: 10, height: 10, background: '#1561AB', transform: 'rotate(-20deg)', opacity: 0.5 }} />
-      <div className="ra-deco ra-deco--sq" style={{ ...heroStyles.deco, left: '46%', top: '6%',  width: 18, height: 18, background: '#FDDE5C', transform: 'rotate(40deg)', opacity: 0.8 }} />
-      <div className="ra-deco ra-deco--sq" style={{ ...heroStyles.deco, right: '6%', top: '12%', width: 12, height: 12, background: '#FF4E50', transform: 'rotate(15deg)', opacity: 0.6 }} />
+      <img src={window.PHOTO('photos/team-meeting.png')} alt="リビカルアニマルカンパニーのチームミーティング" style={heroStyles.bg}/>
+      <div style={heroStyles.overlay}/>
 
       <div style={heroStyles.container}>
-        <div>
-          <div style={heroStyles.eyebrow}>
-            <span style={heroStyles.eyebrowDot} />
-            REBUCUL × AI TEAM MEMBER COMPANY
-          </div>
-          <h1 style={heroStyles.h1}>
-            <span style={heroStyles.h1Em}>AIとともに、</span><br/>
-            人間力を高めよう。
-          </h1>
-          <p style={heroStyles.sub}>
-            株式会社リビカルアニマルカンパニーは、
-            動物のすがたをしたAIチームメンバーと、人が一緒に働く、
-            これからの会社のかたちを試す実験室です。
-          </p>
-          <div style={heroStyles.ctaRow}>
-            <button className="ra-btn" style={{ minWidth: 320 }} onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-              <span style={{ whiteSpace: 'nowrap' }}>仕事を頼んでみる</span>
-              <Arrow />
-            </button>
-            <button className="ra-btn ra-btn--ghost" onClick={() => document.getElementById('team')?.scrollIntoView({ behavior: 'smooth' })}>
-              <span style={{ whiteSpace: 'nowrap' }}>チームに会う</span>
-              <Arrow color="currentColor"/>
-            </button>
-          </div>
+        <div style={heroStyles.eyebrow}>
+          <Sparkle style={heroStyles.eyebrowStar}/>
+          REBUCUL × AI TEAM MEMBER COMPANY
         </div>
-
-        {/* Group photo stage */}
-        <div style={heroStyles.portrait}>
-          <div style={heroStyles.stage}>
-            <img src={window.PHOTO('photos/team-meeting.png')} alt="リビカルアニマルカンパニーのチームミーティング"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}/>
-            {/* tape sticker top-left */}
-            <div style={{ position: 'absolute', top: 18, left: -14, padding: '6px 22px', background: '#FDDE5C', color: '#1561AB', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 11, letterSpacing: '0.2em', transform: 'rotate(-4deg)', boxShadow: '0 4px 12px rgba(74,51,17,0.15)' }}>
-              MEET THE TEAM
-            </div>
-            {/* caption pill bottom */}
-            <div style={{ position: 'absolute', bottom: 16, left: 16, right: 16, padding: '12px 18px', background: 'rgba(255,255,255,0.95)', borderRadius: 100, fontSize: 13, fontWeight: 600, color: 'var(--ra-ink)', display: 'flex', alignItems: 'center', gap: 12, boxShadow: 'var(--ra-sh-soft)' }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#FF6F61', flex: '0 0 auto' }}/>
-              <span>水曜の午前ミーティング・新サービスについて話し合い中</span>
-            </div>
-          </div>
+        <h1 style={heroStyles.h1}>
+          <span style={heroStyles.h1Em}>AIとともに、</span><br/>
+          人間力を高めよう。
+        </h1>
+        <p style={heroStyles.sub}>
+          リビカルアニマルカンパニーは、<br/>
+          動物のすがたをしたAIチームメンバーと、<br/>
+          人が一緒に働く、これからの会社のかたちを<br/>
+          試す実験室です。
+        </p>
+        <div style={heroStyles.ctaRow}>
+          <button className="ra-btn" style={{ minWidth: 320 }} onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+            <span style={{ whiteSpace: 'nowrap' }}>仕事を頼んでみる</span>
+            <Arrow />
+          </button>
+          <button className="ra-btn ra-btn--ghost" style={{ minWidth: 320 }} onClick={() => document.getElementById('team')?.scrollIntoView({ behavior: 'smooth' })}>
+            <span style={{ whiteSpace: 'nowrap' }}>チームに会う</span>
+            <Arrow color="currentColor"/>
+          </button>
         </div>
       </div>
 
+      {/* SCROLL cue */}
+      <div style={heroStyles.scrollCue}>
+        <span>SCROLL</span>
+        <div style={heroStyles.scrollDown}>
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M5 1v10M1 7l4 4 4-4" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* LIVE caption */}
+      <div style={heroStyles.liveCard}>
+        <div style={heroStyles.liveTopRow}>
+          <span>水曜の午前ミーティング中</span>
+          <span style={{ fontFamily: 'var(--font-display)', fontSize: 10, letterSpacing: '0.15em', color: 'var(--ra-ink-faint)', fontWeight: 700 }}>とらさん いるかさん</span>
+          <span style={heroStyles.liveBadge}>
+            <span style={heroStyles.liveDot}/>LIVE
+          </span>
+        </div>
+        <div style={heroStyles.liveSub}>新サービスのアイデア出しをしています</div>
+      </div>
+
       <style>{`
-        @keyframes ra-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+        @keyframes ra-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        @keyframes ra-bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(4px); }
+        }
       `}</style>
     </section>
   );
 };
+
+const Sparkle = ({ style }) => (
+  <svg style={style} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <path d="M12 2l1.8 6.4L20 10l-6.2 1.6L12 18l-1.8-6.4L4 10l6.2-1.6L12 2z"/>
+  </svg>
+);
 
 const Arrow = ({ color = '#fff', size = 20 }) => (
   <svg className="arr" width={size} height={size} viewBox="0 0 24 24" fill={color} aria-hidden>
@@ -39942,10 +39950,6 @@ const ExperimentNote = () => {
             毎日、小さな成功と失敗を繰り返しながら、ちょうどいい距離感を探しています。<br/><br/>
             それでも私たちは、AIと人間が一緒にはたらく未来を、本気で試しています。<br/>
             完璧なAI活用会社ではなく、<strong>試行錯誤しているリアルな現場</strong>として、ここを開いています。
-          </div>
-          <div style={labStyles.sig}>
-            <span>FILED BY: SUZUKI</span>
-            <span>STATUS: ONGOING</span>
           </div>
         </div>
       </div>
@@ -40275,9 +40279,9 @@ window.Failures = () => {
     <section className="ra-section" id="failures">
       <div className="ra-container">
         <div className="ra-section-head">
-          <span className="ra-eyebrow">FAILURE LOG</span>
-          <h2 className="ra-title">うまくいかなかった、記録。</h2>
-          <p className="ra-subtitle">失敗も、ちゃんと残しています。</p>
+          <span className="ra-eyebrow">HONEST FAILURES</span>
+          <h2 className="ra-title">AIと働いて、失敗したこと。</h2>
+          <p className="ra-subtitle">AI礼賛ではなく、リアルな実験記録として残しています。<br/>失敗から、ちょうどいい距離感を学んでいます。</p>
         </div>
         <div style={fStyles.grid}>
           {cases.map((c, i) => (
@@ -40554,9 +40558,9 @@ window.CEOMessage = () => {
           <div style={{fontSize:'15px', lineHeight:'2.1', color:'rgb(61,44,26)'}}>
             {lines.map((line, i) => line === '' ? <br key={i}/> : <div key={i}>{line}</div>)}
           </div>
-          <div style={{marginTop:'40px', paddingTop:'20px', borderTop:'1px solid rgb(192,168,120)', display:'flex', justifyContent:'space-between', fontFamily:'var(--font-display)', fontSize:'11px', letterSpacing:'0.2em', color:'rgb(140,106,63)'}}>
-            <span>FILED BY: SUZUKI</span>
-            <span>STATUS: ONGOING</span>
+          <div style={{marginTop:'40px', paddingTop:'20px', borderTop:'1px solid rgb(192,168,120)', textAlign:'right'}}>
+            <img src={window.PHOTO('photos/handwriting.png')} alt="この実験、ぜひ一緒にしてみませんか？ 鈴木 智代"
+              style={{maxWidth:'420px', width:'100%'}}/>
           </div>
         </div>
       </div>
@@ -40667,7 +40671,6 @@ window.ServiceSection = () => (
       <>
         <window.Hero />
         <window.OrgChart />
-        <window.TeamPhotoBand />
         <window.BeforeAfter />
         <window.CEOMessage />
         <window.ExperimentNote />

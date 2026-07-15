@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="m4-hpM2IZE7i1wlUaOvE_ieY2-Q7OZuL4KJBiI4SlEw" />
   <link rel="canonical" href="https://animal.rebucul.com/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
   <style>/* ==========================================================================
    Rebucul (リビカル) — Colors & Type
    Source of truth: Figma "リビカル様お客様確認用.fig" + brand assets
@@ -39046,6 +39048,55 @@ var e,t,r="function"==typeof Symbol?Symbol:{},a=r.iterator||"@@iterator",n=r.toS
         padding-right: 24px !important;
       }
 
+      /* ===== HERO (mobile) — テキストは無地背景で読みやすく、写真はカードで見せる ===== */
+      .ra-hero {
+        aspect-ratio: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        background: var(--ra-grad-warm-soft) !important;   /* クリームの背景で文字を読みやすく */
+      }
+      /* 写真の上に敷いていた覆いはモバイルでは不要（写真は下にカードで独立表示）*/
+      .ra-hero__scrim { display: none !important; }
+      /* テキストブロック（見出し・本文・ボタン）を最上部に */
+      .ra-hero__inner {
+        order: 1 !important;
+        height: auto !important;
+        justify-content: flex-start !important;
+        padding: 96px 20px 20px !important;   /* 固定ナビ分の余白を確保しタイトルの欠けを防ぐ */
+      }
+      .ra-hero__title {
+        font-size: 32px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 20px !important;
+      }
+      /* SCROLLキューはボタンと重なるのでモバイルでは非表示 */
+      .ra-hero__scroll { display: none !important; }
+      /* CTAボタンは全幅に */
+      .ra-hero__inner .ra-btn { min-width: 0 !important; width: 100% !important; }
+      /* 背景だった写真を、テキストの下に丸角カードとして表示 */
+      .ra-hero > img {
+        order: 2 !important;
+        position: relative !important;
+        inset: auto !important;
+        width: calc(100% - 40px) !important;
+        height: 240px !important;
+        margin: 4px 20px 0 !important;
+        border-radius: 22px !important;
+        object-fit: cover !important;
+        object-position: center right !important;
+        box-shadow: 0 14px 34px rgba(74,51,17,0.16) !important;
+      }
+      /* LIVEカードは写真の下辺に少し重ねてフローティング表示 */
+      .ra-hero__live {
+        order: 3 !important;
+        position: static !important;
+        max-width: none !important;
+        margin: -52px 28px 24px !important;
+      }
+
       /* BeforeAfter: 1fr auto 1fr → vertical */
       div[style*="grid-template-columns: 1fr auto 1fr"] {
         grid-template-columns: 1fr !important;
@@ -39561,16 +39612,16 @@ const Hero = () => {
   };
 
   return (
-    <section style={heroStyles.section}>
+    <section className="ra-hero" style={heroStyles.section}>
       <img src={window.PHOTO('photos/team-meeting.png')} alt="リビカルアニマルカンパニーのチームミーティング" style={heroStyles.bg}/>
-      <div style={heroStyles.overlay}/>
+      <div className="ra-hero__scrim" style={heroStyles.overlay}/>
 
-      <div style={heroStyles.container}>
+      <div className="ra-hero__inner" style={heroStyles.container}>
         <div style={heroStyles.eyebrow}>
           <Sparkle style={heroStyles.eyebrowStar}/>
           REBUCUL × AI TEAM MEMBER COMPANY
         </div>
-        <h1 style={heroStyles.h1}>
+        <h1 className="ra-hero__title" style={heroStyles.h1}>
           <span style={heroStyles.h1Em}>AIとともに、</span><br/>
           人間力を高めよう。
         </h1>
@@ -39593,7 +39644,7 @@ const Hero = () => {
       </div>
 
       {/* SCROLL cue */}
-      <div style={heroStyles.scrollCue}>
+      <div className="ra-hero__scroll" style={heroStyles.scrollCue}>
         <span>SCROLL</span>
         <div style={heroStyles.scrollDown}>
           <svg width="10" height="12" viewBox="0 0 10 12" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -39603,7 +39654,7 @@ const Hero = () => {
       </div>
 
       {/* LIVE caption */}
-      <div style={heroStyles.liveCard}>
+      <div className="ra-hero__live" style={heroStyles.liveCard}>
         <div style={heroStyles.liveTopRow}>
           <span>水曜の午前ミーティング中</span>
           <span style={{ fontFamily: 'var(--font-display)', fontSize: 10, letterSpacing: '0.15em', color: 'var(--ra-ink-faint)', fontWeight: 700 }}>とらさん いるかさん</span>
